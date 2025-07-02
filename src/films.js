@@ -61,8 +61,24 @@ function moviesAverageByCategory(array, genre) {
 
 function hoursToMinutes(array) {
   const arrayMinutes = array.map(movie => ({ ...movie, duration: convertDurationToMinutes(movie.duration)}));
-
+  
   return arrayMinutes;
+}
+
+function convertDurationToMinutes(duration) {
+  if (typeof duration !== 'string') return null
+
+  let newDuration = duration.split(' ');
+
+  let hours = parseInt (newDuration.find(e => e.includes('h')));
+  let minutes = parseInt(newDuration.find(e => e.includes('min')))
+
+  if (isNaN(hours)) {hours = 0}
+  if (isNaN(minutes)) {minutes = 0}
+
+  let totalMinutes = hours * 60 + minutes;
+
+  return totalMinutes;
 }
 
 function bestFilmOfYear(array, year) {
